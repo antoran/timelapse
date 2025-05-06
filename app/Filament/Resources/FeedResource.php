@@ -23,7 +23,8 @@ class FeedResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required(),
                 Forms\Components\TextInput::make('rtsp_url')
-                    ->required(),
+                    ->required()
+                    ->description('rtsp://username:password@ip_address:port/stream_path'),
             ]);
     }
 
@@ -34,8 +35,7 @@ class FeedResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('rtsp_url')
-                    ->searchable()
-                    ->description('rtsp://username:password@ip_address:port/stream_path'),
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
