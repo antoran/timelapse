@@ -40,16 +40,13 @@ class FeedImageResource extends Resource
                 'lg' => 3,
             ])
             ->filters([
-                //
+
             ])
             ->actions([
-                // Tables\Actions\ViewAction::make(),
-                // Tables\Actions\EditAction::make(),
+
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
+
             ]);
     }
 
@@ -64,7 +61,6 @@ class FeedImageResource extends Resource
     {
         return [
             'index' => Pages\ListFeedImages::route('/'),
-            // 'create' => Pages\CreateFeedImage::route('/create'),
             'view' => Pages\ViewFeedImage::route('/{record}'),
             // 'edit' => Pages\EditFeedImage::route('/{record}/edit'),
         ];
