@@ -24,7 +24,7 @@ class FeedResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('rtsp_url')
                     ->required()
-                    ->description('rtsp://username:password@ip_address:port/stream_path'),
+                    ->helperText('rtsp://username:password@ip_address:port/stream_path'),
             ]);
     }
 
