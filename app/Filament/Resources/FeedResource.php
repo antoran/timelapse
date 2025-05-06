@@ -34,7 +34,8 @@ class FeedResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('rtsp_url')
-                    ->searchable(),
+                    ->searchable()
+                    ->description('rtsp://username:password@ip_address:port/stream_path'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
