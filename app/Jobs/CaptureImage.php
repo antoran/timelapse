@@ -3,11 +3,11 @@
 namespace App\Jobs;
 
 use App\Actions\CreateImageFromRTSPStream;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
 
-class CaptureImage implements ShouldQueue, ShouldBeUnique
+class CaptureImage implements ShouldBeUnique, ShouldQueue
 {
     use Queueable;
 
@@ -15,8 +15,7 @@ class CaptureImage implements ShouldQueue, ShouldBeUnique
 
     public function __construct(
         protected string $rtspStream,
-    )
-    {}
+    ) {}
 
     public function handle(CreateImageFromRTSPStream $action): void
     {

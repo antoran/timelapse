@@ -1,11 +1,13 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Actions;
 
 use App\Models\Feed;
-use RuntimeException;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Storage;
+use RuntimeException;
 
 /**
  * Class CreateImageFromRTSP
@@ -18,6 +20,7 @@ class CreateImageFromRTSPStream
      * Execute the action to create an image from the RTSP stream.
      *
      * @return bool
+     *
      * @throws RuntimeException
      */
     public function execute(
@@ -25,15 +28,13 @@ class CreateImageFromRTSPStream
         int $width = 1920,
         int $height = 1080,
         string $disk = 'public'
-    ): string
-    {
-        $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('frame_', true) . '.png';
+    ): string {
+        $tempPath = sys_get_temp_dir().DIRECTORY_SEPARATOR.uniqid('frame_', true).'.png';
         $now = now();
 
         $filename = str("{$feed->name}-{$now->format('Y-m-d_H-i-s')}.png")
             ->replace(' ', '_')
             ->toString();
-
 
         $result = Process::run([
             'ffmpeg',
@@ -44,7 +45,7 @@ class CreateImageFromRTSPStream
         ]);
 
         if ($result->failed()) {
-            throw new RuntimeException($result->exitCode() .  ': Failed to create image from RTSP stream: ' . $result->errorOutput());
+            throw new RuntimeException($result->exitCode().': Failed to create image from RTSP stream: '.$result->errorOutput());
         }
 
         $fs = Storage::disk($disk);

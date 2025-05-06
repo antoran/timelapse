@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Feed;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class FeedImage extends Model
 {
@@ -22,7 +21,7 @@ class FeedImage extends Model
             'image_taken_at' => 'datetime',
         ];
     }
-    
+
     public function feed()
     {
         return $this->belongsTo(Feed::class);

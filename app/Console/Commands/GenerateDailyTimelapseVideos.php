@@ -2,42 +2,44 @@
 
 namespace App\Console\Commands;
 
-use App\Actions\CreateImageFromRTSPStream;
+use App\Actions\CreateTimelapseVideo;
 use App\Models\Feed;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Concurrency;
+use Illuminate\Support\Facades\Date;
 use RuntimeException;
 
-class CaptureRtspFrame extends Command
+class GenerateDailyTimelapseVideos extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:capture-rtsp-frame';
+    protected $signature = 'app:generate-daily-timelapse-videos';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Capture a frame from an RTSP stream and save as an image';
+    protected $description = 'Generate timelapse videos for all feeds for the previous day.';
 
     /**
      * Execute the console command.
      */
-    public function handle(CreateImageFromRTSPStream $createImageFromRTSP): int
+    public function handle(CreateTimelapseVideo $action): int
     {
+        $date = Date::yesterday();
         $feeds = Feed::all();
 
-        $closures = $feeds->map(fn ($feed) => fn () => $createImageFromRTSP->execute($feed))->toArray();
+        $closures = $feeds->map(fn ($feed) => fn () => $action->execute($feed, $date))->toArray();
         try {
             Concurrency::driver('fork')->run(
                 $closures
             );
         } catch (RuntimeException $e) {
-            $this->error('Failed to create image from RTSP stream: '.$e->getMessage());
+            $this->error('Failed to create timelapse videos: '.$e->getMessage());
 
             return Command::FAILURE;
         }
