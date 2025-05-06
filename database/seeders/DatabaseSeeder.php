@@ -14,6 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::create([
+            'name' => 'Admin',
+            'email' => 'daniel@danweb.design',
+            'password' => bcrypt('password'),
+        ]);
+
         Feed::create([
             'name' => 'Test Feed',
             'rtsp_url' => 'rtsp://100.123.74.38:8554/stream',

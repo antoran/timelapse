@@ -24,7 +24,7 @@ class CreateImageFromRTSPStream
         Feed $feed,
         int $width = 1920,
         int $height = 1080,
-        string $disk = 'local'
+        string $disk = 'public'
     ): string
     {
         $tempPath = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('frame_', true) . '.png';
